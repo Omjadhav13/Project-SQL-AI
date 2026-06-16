@@ -1,0 +1,19 @@
+/.metadata/
+
+# Java / Maven
+target/
+
+# Node / React
+node_modules/
+
+# Eclipse
+.settings/
+.project
+.classpath
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
