@@ -1,19 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
+import AnalyzeButton from './components/AnalyzeButton';
+import Header from './components/Header';
+import ResultCard from './components/ResultCard';
+import SqlInput from './components/SqlInput';
 
 function App() {
+
   return (
     <div>
-      <hr />
-      <h1>SQL Query Analyzer</h1>
-      <hr/>
-
-      <h2>Understand how SQL works internally</h2>
+      <Header/>
+      <SqlInput/>
+      <AnalyzeButton/>
+      <ResultCard/>
     </div>
-  );
+  )
 }
 
 export default App;
