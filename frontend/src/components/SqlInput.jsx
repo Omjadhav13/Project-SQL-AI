@@ -2,6 +2,7 @@ import { div } from '@tensorflow/tfjs'
 import React from 'react'
 
 function SqlInput({ query, setQuery }) {
+  
   return (
     <div>
         <h4>Enter your query</h4>

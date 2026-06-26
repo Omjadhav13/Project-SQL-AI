@@ -1,10 +1,8 @@
 import React from 'react'
 import App from '../App'
 
-function  AnalyzeButton({query})  {
-  const onAnalyze = ()=>{
-    console.log(query);
-  }
+function  AnalyzeButton({onAnalyze})  {
+
   return (
     <button onClick={onAnalyze}>Analyze</button>
   ) 
