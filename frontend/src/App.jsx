@@ -1,65 +1,105 @@
-import './App.css'
-import AnalyzeButton from './components/AnalyzeButton';
-import Header from './components/Header';
-import ResultCard from './components/ResultCard';
-import SqlInput from './components/SqlInput';
-import React, { useState } from 'react';
-import { analyzeQuery } from './api/analyzerApi';
+import "./App.css";
+import React, { useState } from "react";
+
+import Header from "./components/Header";
+import SqlInput from "./components/SqlInput";
+import AnalyzeButton from "./components/AnalyzeButton";
+import ResultCard from "./components/ResultCard";
+
+import { analyzeQuery } from "./api/analyzerApi";
 
 function App() {
+
   const [query, setQuery] = useState("");
   const [analyzedResult, setAnalyzedResult] = useState(null);
-  const [Loading, setLoading] = useState(false);
-  const [Error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
   const handleAnalyze = async () => {
+
     setLoading(true);
+
     setError("");
+
+    setAnalyzedResult(null);
+
     try {
+
       const result = await analyzeQuery(query);
+
       setAnalyzedResult(result);
-    }
-    catch (e) {
-      console.log(e.message);
-    }
-    finally {
+
+    } catch (e) {
+
+      console.error(e);
+
+      if (e.response) {
+        setError(e.response.data);
+      } else {
+        setError("Unable to connect to the server.");
+      }
+
+    } finally {
+
       setLoading(false);
+
     }
 
-  }
+  };
+
   return (
     <div>
+
       <Header />
-      <SqlInput query={query} setQuery={setQuery} />
-      <AnalyzeButton onAnalyze={handleAnalyze} />
+
+      <SqlInput
+        query={query}
+        setQuery={setQuery}
+      />
+
+      <AnalyzeButton
+        onAnalyze={handleAnalyze}
+      />
+
       {loading && <h2>Analyzing...</h2>}
 
-      {error && <p>{error}</p>}
+      {error && (
+        <p style={{ color: "red" }}>
+          {error}
+        </p>
+      )}
 
-      {analysisResult && (
+      {analyzedResult && (
         <>
           <ResultCard
             title="Query Type"
-            content={analysisResult.queryType}
+            content={analyzedResult.queryType}
           />
+
           <ResultCard
             title="Parsing"
-            content={analysisResult.parsing}
+            content={analyzedResult.parsing}
           />
+
           <ResultCard
             title="Optimization"
-            content={analysisResult.optimization}
+            content={analyzedResult.optimization}
           />
+
           <ResultCard
             title="Execution"
-            content={analysisResult.execution}
+            content={analyzedResult.execution}
           />
+
           <ResultCard
             title="Result Generation"
-            content={analysisResult.resultGeneration}
+            content={analyzedResult.resultGeneration}
           />
         </>
       )}
+
     </div>
   );
 }
+
 export default App;
